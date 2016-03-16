@@ -1,0 +1,53 @@
+{
+  "name": "buildr/utils",
+  "type": "library",
+  "homepage": "http://buildr-framework.io",
+  "authors": [
+    {
+      "name": "Zoltán Borsos",
+      "email": "zolli07@gmail.com",
+      "homepage": "http://zolli.hu",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "http://project.zolli.hu",
+    "source": "http://project.zolli.hu/diffusion/UTILS/",
+    "docs": "https://docs.buildr-framework.io/utils"
+  },
+  "description": "BuildR Framework Utilities",
+  "keywords": [
+    "util",
+    "string",
+    "array",
+    "math",
+    "helper"
+  ],
+  "license": "GPL-3.0",
+  "require": {
+    "php": ">=5.6"
+  },
+  "require-dev": {
+    "couscous/couscous": "1.4.*",
+    "phing/phing": "2.*",
+    "phpunit/phpunit": "5.*",
+    "phploc/phploc": "2.*",
+    "sebastian/phpcpd": "2.*",
+    "pdepend/pdepend": "2.*",
+    "apigen/apigen": "4.*",
+    "squizlabs/php_codesniffer": "2.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "BuildR\\Utils\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "BuildR\\Utils\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "preferred-install": "dist"
+  }
+}

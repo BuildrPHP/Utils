@@ -1,0 +1,18 @@
+template:
+    url: git://github.com/CouscousPHP/Template-Dark.git
+    index: index.md
+
+exclude:
+    - vendor
+    - buildTools
+
+github:
+    user: BuildRPHP
+    repo: Utils
+
+title: BuildR
+subTitle: Utilities
+baseUrl: .
+
+menu:
+    sections:
