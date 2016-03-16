@@ -26,6 +26,7 @@
   "license": "GPL-3.0",
   "require": {
     "php": ">=5.6",
+    "ext-mbstring": "*",
     "buildr/foundation": "0.*"
   },
   "require-dev": {
