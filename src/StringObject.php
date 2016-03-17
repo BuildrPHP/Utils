@@ -18,6 +18,10 @@ class StringObject implements StringConvertibleInterface {
         $this->string = $string;
     }
 
+    //===========================================
+    // StringConvertibleInterface Implementation
+    //===========================================
+
     /**
      * {@inheritDoc}
      */
