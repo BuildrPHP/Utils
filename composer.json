@@ -25,7 +25,9 @@
   ],
   "license": "GPL-3.0",
   "require": {
-    "php": ">=5.6"
+    "php": ">=5.6",
+    "ext-mbstring": "*",
+    "buildr/foundation": "0.*"
   },
   "require-dev": {
     "couscous/couscous": "1.4.*",
