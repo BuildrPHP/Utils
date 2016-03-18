@@ -36,7 +36,7 @@ class StringUtils {
      *
      * @return bool
      */
-    public function endsWith($input, $match) {
+    public static function endsWith($input, $match) {
         return ((string) $match === substr($input, -strlen($match)));
     }
 
