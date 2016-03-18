@@ -13,7 +13,7 @@ use BuildR\Utils\StringObject;
  * @package Utils
  * @subpackage Factories
  *
- * @copyright    Copyright 2015, Zoltán Borsos.
+ * @copyright    Copyright 2016, Zoltán Borsos.
  * @license      https://github.com/BuildrPHP/Utils/blob/master/LICENSE.md
  * @link         https://github.com/BuildrPHP/Utils
  */

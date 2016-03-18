@@ -8,7 +8,7 @@
  * @author Zoltán Borsos <zolli07@gmail.com>
  * @package Utils
  *
- * @copyright    Copyright 2015, Zoltán Borsos.
+ * @copyright    Copyright 2016, Zoltán Borsos.
  * @license      https://github.com/BuildrPHP/Utils/blob/master/LICENSE.md
  * @link         https://github.com/BuildrPHP/Utils
  */
@@ -38,6 +38,19 @@ class StringUtils {
      */
     public static function endsWith($input, $match) {
         return ((string) $match === substr($input, -strlen($match)));
+    }
+
+    /**
+     * Determines that the input string contains the
+     * given substring.
+     *
+     * @param string $input
+     * @param string $match
+     *
+     * @return bool
+     */
+    public static function contains($input, $match) {
+        return (mb_stripos($input, $match, 0) !== FALSE);
     }
 
 }

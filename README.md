@@ -10,6 +10,11 @@ Not exist yet
  - [ ] String utilities
  - [ ] Array manipulation utilities
 
+## ToDo Strings
+
+ - [ ] ensureStartsWith($substring) (t.com -> test.com)
+ - [ ] ensureEndsWith($substring) (domain.c -> domain.com)
+
 ## Contribution
 
 For contribution please refer our [Contribution Guide](https://github.com/BuildrPHP/Coding-Standard) Repository.
