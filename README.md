@@ -8,6 +8,7 @@ Not exist yet
 ## ToDo
 
  - [ ] String utilities
+ - [X] Object extension system
  - [ ] Array manipulation utilities
 
 ## ToDo Strings

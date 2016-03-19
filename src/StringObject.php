@@ -2,6 +2,8 @@
 
 use BuildR\Foundation\Exception\InvalidArgumentException;
 use BuildR\Foundation\Object\StringConvertibleInterface;
+use BuildR\Utils\Extension\AbstractExtensionReceiver;
+use BuildR\Utils\Extension\StringObjectExtensionInterface;
 use \Countable;
 use \IteratorAggregate;
 use \ArrayIterator;
@@ -19,7 +21,9 @@ use \ArrayIterator;
  * @license      https://github.com/BuildrPHP/Utils/blob/master/LICENSE.md
  * @link         https://github.com/BuildrPHP/Utils
  */
-class StringObject implements StringConvertibleInterface, Countable, IteratorAggregate {
+class StringObject
+    extends AbstractExtensionReceiver
+    implements StringConvertibleInterface, Countable, IteratorAggregate {
 
     /**
      * @type string
@@ -268,6 +272,37 @@ class StringObject implements StringConvertibleInterface, Countable, IteratorAgg
      */
     public function getIterator() {
         return new ArrayIterator($this->chars());
+    }
+
+    // ==========================================
+    // ExtensionReceiverInterface Implementation
+    // ==========================================
+
+    /**
+     * {@inheritDoc}
+     */
+    public function shouldReceiveType() {
+        return StringObjectExtensionInterface::class;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCurrentValue() {
+        return $this->string;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processResult(array $result) {
+        list($result, $isRaw) = array_values($result);
+
+        if(!$isRaw && is_string($result)) {
+            return new static($result);
+        }
+
+        return $result;
     }
 
 }
