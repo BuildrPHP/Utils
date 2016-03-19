@@ -53,7 +53,9 @@ class StringObject
      * @return static
      */
     public function append($substring) {
-        return new static($this->string . $substring);
+        $newValue = $this->string . $substring;
+
+        return $this->createClone($newValue);
     }
 
     /**
@@ -64,7 +66,9 @@ class StringObject
      * @return static
      */
     public function prepend($substring) {
-        return new static($substring . $this->string);
+        $newValue = $substring . $this->string;
+
+        return $this->createClone($newValue);
     }
 
     /**
@@ -98,7 +102,7 @@ class StringObject
         $chars = $this->chars();
         $char = (isset($chars[$index])) ? $chars[$index] : '';
 
-        return new static($char);
+        return $this->createClone($char);
     }
 
     /**
@@ -107,7 +111,9 @@ class StringObject
      * @return static
      */
     public function toLower() {
-        return new static(mb_strtolower($this->string));
+        $newValue = mb_strtolower($this->string);
+
+        return $this->createClone($newValue);
     }
 
     /**
@@ -116,7 +122,9 @@ class StringObject
      * @return static
      */
     public function toUpper() {
-        return new static(mb_strtoupper($this->string));
+        $newValue = mb_strtoupper($this->string);
+
+        return $this->createClone($newValue);
     }
 
     /**
@@ -200,7 +208,9 @@ class StringObject
      * @return static
      */
     public function substring($start, $length = PHP_INT_MAX) {
-        return new static(mb_substr($this->string, $start, $length));
+        $newValue = mb_substr($this->string, $start, $length);
+
+        return $this->createClone($newValue);
     }
 
     /**
@@ -213,10 +223,12 @@ class StringObject
      */
     public function first($charCount) {
         if($charCount <= 0) {
-            return new static('');
+            return $this->createClone('');
         }
 
-        return new static($this->substring(0, (int) $charCount));
+        $newValue = $this->substring(0, (int) $charCount);
+
+        return $this->createClone($newValue);
     }
 
     /**
@@ -228,10 +240,38 @@ class StringObject
      */
     public function last($charCount) {
         if($charCount <= 0) {
-            return new static('');
+            return $this->createClone('');
         }
 
-        return new static($this->substring(($charCount * -1)));
+        $newValue = $this->substring(($charCount * -1));
+
+        return $this->createClone($newValue);
+    }
+
+    public function map($delimiter, callable $callback) {
+        $parts = explode($delimiter, $this->string);
+
+        foreach($parts as $part) {
+            call_user_func_array($callback, [$part, $delimiter]);
+        }
+    }
+
+    /**
+     * Clone the current object a set a new value (base string)
+     * on the clone.
+     *
+     * This method allow instances immutability, but allow instances
+     * to retain loaded extensions.
+     *
+     * @param $newValue
+     *
+     * @return \BuildR\Utils\StringObject
+     */
+    protected function createClone($newValue) {
+        $newInstance = clone $this;
+        $newInstance->string = $newValue;
+
+        return $newInstance;
     }
 
     //===========================================
@@ -299,7 +339,7 @@ class StringObject
         list($result, $isRaw) = array_values($result);
 
         if(!$isRaw && is_string($result)) {
-            return new static($result);
+            return $this->createClone($result);
         }
 
         return $result;
