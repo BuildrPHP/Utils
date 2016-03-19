@@ -7,14 +7,9 @@ Not exist yet
 
 ## ToDo
 
- - [ ] String utilities
+ - [X] String utilities
  - [X] Object extension system
  - [ ] Array manipulation utilities
-
-## ToDo Strings
-
- - [ ] ensureStartsWith($substring) (t.com -> test.com)
- - [ ] ensureEndsWith($substring) (domain.c -> domain.com)
 
 ## Contribution
 

@@ -23,17 +23,25 @@ interface ExtensionReceiverInterface {
      * @param string $name This will be the method name can be run
      * @param array $arguments Additional arguments for method
      *
+     * @internal
+     *
      * @return mixed
      */
     public function __call($name, $arguments);
 
     /**
-     * @return string The fully qualified class nam of the extension interface that this object can receive
+     * The fully qualified class nam of the extension interface that this object can receive
+     *
+     * @internal
+     *
+     * @return string
      */
     public function shouldReceiveType();
 
     /**
      * Returns the object current value for processing
+     *
+     * @internal
      *
      * @return mixed
      */
@@ -49,6 +57,8 @@ interface ExtensionReceiverInterface {
      * The result member is holding the raw result from the extension method
      *
      * @param array $result
+     *
+     * @internal
      *
      * @return mixed
      */
