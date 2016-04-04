@@ -1,0 +1,23 @@
+<testGroups>
+    <testGroup name="validDataGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="testValue" type="string" />
+            <dataSetProperty name="expected" value="testValue" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="true" type="bool" />
+            <dataSetProperty name="expected" value="1" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="255" type="int" />
+            <dataSetProperty name="expected" value="255" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="2e5" type="float" />
+            <dataSetProperty name="expected" value="200000" />
+        </dataSet>
+    </testGroup>
+</testGroups>

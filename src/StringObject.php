@@ -74,19 +74,35 @@ class StringObject
     /**
      * Return an array where each element represent a single character from the current string
      *
+     * @param $withoutLineBreaks bool If TRUE, the length is returned without the line-breaks characters (\r \n \t)
+     *
      * @return array
      */
-    public function chars() {
-        return str_split($this->string);
+    public function chars($withoutLineBreaks = TRUE) {
+        $string = $this->string;
+
+        if($withoutLineBreaks === TRUE) {
+            $string = $this->removeLineBreaks($this->string);
+        }
+
+        return preg_split('/(?<!^)(?!$)/u', $string);
     }
 
     /**
      * Determines the length of the current string
      *
+     * @param $withoutLineBreaks bool If TRUE, the length is returned without the line-breaks characters (\r \n \t)
+     *
      * @return int
      */
-    public function length() {
-        return mb_strlen($this->string);
+    public function length($withoutLineBreaks = TRUE) {
+        $string = $this->string;
+
+        if($withoutLineBreaks === TRUE) {
+            $string = $this->removeLineBreaks($this->string);
+        }
+
+        return mb_strlen($string);
     }
 
     /**
@@ -453,6 +469,17 @@ class StringObject
         }
 
         return $this->createClone($result);
+    }
+
+    /**
+     * Remove all line-break character from the given string
+     *
+     * @param string $string
+     *
+     * @return mixed
+     */
+    protected function removeLineBreaks($string) {
+        return str_replace(["\\r", "\\n", "\\t"], '', $string);
     }
 
     /**

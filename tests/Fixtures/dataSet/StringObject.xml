@@ -1,0 +1,133 @@
+<testGroups>
+    <testGroup name="invalidConstructorParameterGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="255" type="int" />
+            <dataSetProperty name="expectedExceptionType" value="\BuildR\Foundation\Exception\InvalidArgumentException" />
+            <dataSetProperty name="expectedExceptionMessage" value="The given value is not a string!" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="true" type="bool" />
+            <dataSetProperty name="expectedExceptionType" value="\BuildR\Foundation\Exception\InvalidArgumentException" />
+            <dataSetProperty name="expectedExceptionMessage" value="The given value is not a string!" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="-1.42" type="float" />
+            <dataSetProperty name="expectedExceptionType" value="\BuildR\Foundation\Exception\InvalidArgumentException" />
+            <dataSetProperty name="expectedExceptionMessage" value="The given value is not a string!" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="appendGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="test" />
+            <dataSetProperty name="appendValue" value="append" />
+            <dataSetProperty name="expectedResult" value="testappend"/>
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value=" test " />
+            <dataSetProperty name="appendValue" value=" append " />
+            <dataSetProperty name="expectedResult" value=" test  append "/>
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="testKeeps" />
+            <dataSetProperty name="appendValue" value="Case" />
+            <dataSetProperty name="expectedResult" value="testKeepsCase"/>
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Árvíztűrő" />
+            <dataSetProperty name="appendValue" value=" tükörfúrógép" />
+            <dataSetProperty name="expectedResult" value="Árvíztűrő tükörfúrógép"/>
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Some special chars: " />
+            <dataSetProperty name="appendValue" value="$,.-_:;*#@+!%" />
+            <dataSetProperty name="expectedResult" value="Some special chars: $,.-_:;*#@+!%"/>
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="prependGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="prepend" />
+            <dataSetProperty name="prependValue" value="test" />
+            <dataSetProperty name="expectedResult" value="testprepend"/>
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value=" prepend " />
+            <dataSetProperty name="prependValue" value=" test " />
+            <dataSetProperty name="expectedResult" value=" test  prepend "/>
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Case" />
+            <dataSetProperty name="prependValue" value="testKeeps" />
+            <dataSetProperty name="expectedResult" value="testKeepsCase"/>
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value=" tükörfúrógép" />
+            <dataSetProperty name="prependValue" value="Árvíztűrő" />
+            <dataSetProperty name="expectedResult" value="Árvíztűrő tükörfúrógép"/>
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="$,.-_:;*#@+!%" />
+            <dataSetProperty name="prependValue" value="Some special chars: " />
+            <dataSetProperty name="expectedResult" value="Some special chars: $,.-_:;*#@+!%"/>
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="charsGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="test valu   e " />
+            <dataSetProperty name="expectedResult" value="t;e;s;t; ;v;a;l;u; ; ; ;e; " type="array" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="árvíztűrő 語ご" />
+            <dataSetProperty name="expectedResult" value="á;r;v;í;z;t;ű;r;ő; ;語;ご" type="array" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="árvíztűrő \r\n\t tükörfúrógép" />
+            <dataSetProperty name="expectedResult" value="á;r;v;í;z;t;ű;r;ő; ; ;t;ü;k;ö;r;f;ú;r;ó;g;é;p" type="array" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="" />
+            <dataSetProperty name="expectedResult" value="" type="array" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="lengthGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="test valu   e " />
+            <dataSetProperty name="expectedResult" value="14" type="int" />
+            <dataSetProperty name="expectedResultWithoutLineBreaks" value="14" type="int" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="árvíztűrő 語ご" />
+            <dataSetProperty name="expectedResult" value="12" type="int" />
+            <dataSetProperty name="expectedResultWithoutLineBreaks" value="12" type="int" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="" />
+            <dataSetProperty name="expectedResult" value="0" type="int" />
+            <dataSetProperty name="expectedResultWithoutLineBreaks" value="0" type="int" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="multi \r\n line value\t" />
+            <dataSetProperty name="expectedResult" value="23" type="int" />
+            <dataSetProperty name="expectedResultWithoutLineBreaks" value="17" type="int" />
+        </dataSet>
+    </testGroup>
+</testGroups>
