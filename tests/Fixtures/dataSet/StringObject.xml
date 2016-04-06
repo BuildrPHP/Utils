@@ -275,21 +275,21 @@
         <dataSet>
             <dataSetProperty name="input" value="simpleTestValue" />
             <dataSetProperty name="start" value="-1" type="int" />
-            <dataSetProperty name="length" value="-" type="string" />
+            <dataSetProperty name="length" value="true" type="bool" />
             <dataSetProperty name="expected" value="e" />
         </dataSet>
 
         <dataSet>
             <dataSetProperty name="input" value="simpleTestValue" />
             <dataSetProperty name="start" value="-5" type="int" />
-            <dataSetProperty name="length" value="-" type="string" />
+            <dataSetProperty name="length" value="true" type="bool" />
             <dataSetProperty name="expected" value="Value" />
         </dataSet>
 
         <dataSet>
             <dataSetProperty name="input" value="simpleTestValue" />
             <dataSetProperty name="start" value="6" type="int" />
-            <dataSetProperty name="length" value="-" type="string" />
+            <dataSetProperty name="length" value="true" type="bool" />
             <dataSetProperty name="expected" value="TestValue" />
         </dataSet>
 

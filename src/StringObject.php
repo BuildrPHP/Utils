@@ -269,7 +269,7 @@ class StringObject
 
         $newValue = $this->substring(($charCount * -1));
 
-        return $this->createClone($newValue);
+        return $this->createClone((string) $newValue);
     }
 
     /**
