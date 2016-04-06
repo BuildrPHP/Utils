@@ -20,7 +20,6 @@
     "util",
     "string",
     "array",
-    "math",
     "helper"
   ],
   "license": "GPL-3.0",
