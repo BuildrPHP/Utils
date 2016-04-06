@@ -19,6 +19,28 @@
         </dataSet>
     </testGroup>
 
+    <testGroup name="removeWhitespaceGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="\r\n\t\0" />
+            <dataSetProperty name="expected" value="" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="hello \r\n\t\0world" />
+            <dataSetProperty name="expected" value="hello world" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="árvíztűrő\r\n\t\0 tükörfúrógép" />
+            <dataSetProperty name="expected" value="árvíztűrő tükörfúrógép" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Let\'s play something" />
+            <dataSetProperty name="expected" value="Let\'s play something" />
+        </dataSet>
+    </testGroup>
+
     <testGroup name="appendGroup">
         <dataSet>
             <dataSetProperty name="input" value="test" />
@@ -96,7 +118,7 @@
 
         <dataSet>
             <dataSetProperty name="input" value="árvíztűrő \r\n\t tükörfúrógép" />
-            <dataSetProperty name="expectedResult" value="á;r;v;í;z;t;ű;r;ő; ; ;t;ü;k;ö;r;f;ú;r;ó;g;é;p" type="array" />
+            <dataSetProperty name="expectedResult" value="á;r;v;í;z;t;ű;r;ő; ;\;r;\;n;\;t; ;t;ü;k;ö;r;f;ú;r;ó;g;é;p" type="array" />
         </dataSet>
 
         <dataSet>
@@ -109,25 +131,436 @@
         <dataSet>
             <dataSetProperty name="input" value="test valu   e " />
             <dataSetProperty name="expectedResult" value="14" type="int" />
-            <dataSetProperty name="expectedResultWithoutLineBreaks" value="14" type="int" />
         </dataSet>
 
         <dataSet>
             <dataSetProperty name="input" value="árvíztűrő 語ご" />
             <dataSetProperty name="expectedResult" value="12" type="int" />
-            <dataSetProperty name="expectedResultWithoutLineBreaks" value="12" type="int" />
         </dataSet>
 
         <dataSet>
             <dataSetProperty name="input" value="" />
             <dataSetProperty name="expectedResult" value="0" type="int" />
-            <dataSetProperty name="expectedResultWithoutLineBreaks" value="0" type="int" />
         </dataSet>
 
         <dataSet>
             <dataSetProperty name="input" value="multi \r\n line value\t" />
             <dataSetProperty name="expectedResult" value="23" type="int" />
-            <dataSetProperty name="expectedResultWithoutLineBreaks" value="17" type="int" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="charAtGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="hello world" />
+            <dataSetProperty name="position" value="7" type="int" />
+            <dataSetProperty name="expectedResult" value="w" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="hello\r\nworld" />
+            <dataSetProperty name="position" value="11" type="int" />
+            <dataSetProperty name="expectedResult" value="o" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="árvíztŰrőTükörfÚrógép" />
+            <dataSetProperty name="position" value="7" type="int" />
+            <dataSetProperty name="expectedResult" value="Ű" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="árvíztŰrő \r\n TükörfÚrógép" />
+            <dataSetProperty name="position" value="19" type="int" />
+            <dataSetProperty name="expectedResult" value="ö" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="test" />
+            <dataSetProperty name="position" value="5" type="int" />
+            <dataSetProperty name="expectedResult" value="" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="toLowerGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="TEsT" />
+            <dataSetProperty name="expected" value="test" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="teST With SPACEs" />
+            <dataSetProperty name="expected" value="test with spaces" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="ÁrvÍztŰrŐ tÜkÖrfÚrÓgÉp" />
+            <dataSetProperty name="expected" value="árvíztűrő tükörfúrógép" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="test \tWHITESPACE" />
+            <dataSetProperty name="expected" value="test \twhitespace" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="toUpperGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="TEsT" />
+            <dataSetProperty name="expected" value="TEST" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="teST With SPACEs" />
+            <dataSetProperty name="expected" value="TEST WITH SPACES" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="áRVíZTűRő TüKöRFúRóGéP" />
+            <dataSetProperty name="expected" value="ÁRVÍZTŰRŐ TÜKÖRFÚRÓGÉP" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="test \tWHITESPACE" />
+            <dataSetProperty name="expected" value="TEST \TWHITESPACE" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="containsAllGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="testHelloWorldString" />
+            <dataSetProperty name="values" value="test;Hello;World;String;ldString;HelloWorld" type="array" />
+            <dataSetProperty name="expected" value="true" type="bool" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="árvíztűrő Tükörfúrógép語ご" />
+            <dataSetProperty name="values" value="árvíztűrő ;Tükörfúrógép;fúrógép語ご" type="array" />
+            <dataSetProperty name="expected" value="true" type="bool" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="caSeSenSitiVEtEST" />
+            <dataSetProperty name="values" value="caSe;sensitive;tEST" type="array" />
+            <dataSetProperty name="expected" value="false" type="bool" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="caSeSenSitiVEtEST" />
+            <dataSetProperty name="values" value="caSe;SenSitiVE;tEST" type="array" />
+            <dataSetProperty name="expected" value="true" type="bool" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="containsAnyGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="caSeSenSitiVEtEST" />
+            <dataSetProperty name="values" value="caSe;nonExistingValue" type="array" />
+            <dataSetProperty name="expected" value="true" type="bool" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="caSeSenSitiVEtEST" />
+            <dataSetProperty name="values" value="caSE;sensitive" type="array" />
+            <dataSetProperty name="expected" value="false" type="bool" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="árvíztűrő Tükörfúrógép語ご" />
+            <dataSetProperty name="values" value="語;árvíztűrő" type="array" />
+            <dataSetProperty name="expected" value="true" type="bool" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="substringGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="simpleTestValue" />
+            <dataSetProperty name="start" value="-1" type="int" />
+            <dataSetProperty name="length" value="-" type="string" />
+            <dataSetProperty name="expected" value="e" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="simpleTestValue" />
+            <dataSetProperty name="start" value="-5" type="int" />
+            <dataSetProperty name="length" value="-" type="string" />
+            <dataSetProperty name="expected" value="Value" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="simpleTestValue" />
+            <dataSetProperty name="start" value="6" type="int" />
+            <dataSetProperty name="length" value="-" type="string" />
+            <dataSetProperty name="expected" value="TestValue" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="simpleTestValue" />
+            <dataSetProperty name="start" value="-9" type="int" />
+            <dataSetProperty name="length" value="4" type="int" />
+            <dataSetProperty name="expected" value="Test" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="simpleTestValue" />
+            <dataSetProperty name="start" value="6" type="int" />
+            <dataSetProperty name="length" value="4" type="int" />
+            <dataSetProperty name="expected" value="Test" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Árvíztűrő 語 Tükörfúrógép" />
+            <dataSetProperty name="start" value="0" type="int" />
+            <dataSetProperty name="length" value="-12" type="int" />
+            <dataSetProperty name="expected" value="Árvíztűrő 語 " />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Árvíztűrő 語 Tükörfúrógép" />
+            <dataSetProperty name="start" value="9" type="int" />
+            <dataSetProperty name="length" value="-12" type="int" />
+            <dataSetProperty name="expected" value=" 語 " />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Árvíztűrő 語 Tükörfúrógép" />
+            <dataSetProperty name="start" value="-12" type="int" />
+            <dataSetProperty name="length" value="-7" type="int" />
+            <dataSetProperty name="expected" value="Tükör" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="firstGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="simpleTestValue" />
+            <dataSetProperty name="firstCharCount" value="0" type="int"/>
+            <dataSetProperty name="expected" value="" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="simpleTestValue" />
+            <dataSetProperty name="firstCharCount" value="-5" type="int"/>
+            <dataSetProperty name="expected" value="" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="simpleTestValue" />
+            <dataSetProperty name="firstCharCount" value="6" type="int"/>
+            <dataSetProperty name="expected" value="simple" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="simpleTestValue" />
+            <dataSetProperty name="firstCharCount" value="999" type="int"/>
+            <dataSetProperty name="expected" value="simpleTestValue" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Árvíztűrő 語 Tükörfúrógép" />
+            <dataSetProperty name="firstCharCount" value="999" type="int"/>
+            <dataSetProperty name="expected" value="Árvíztűrő 語 Tükörfúrógép" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Árvíztűrő 語 Tükörfúrógép" />
+            <dataSetProperty name="firstCharCount" value="10" type="int"/>
+            <dataSetProperty name="expected" value="Árvíztűrő " />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Árvíztűrő 語 Tükörfúrógép" />
+            <dataSetProperty name="firstCharCount" value="11" type="int"/>
+            <dataSetProperty name="expected" value="Árvíztűrő 語" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="lastGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="simpleTestValue" />
+            <dataSetProperty name="lastCharCount" value="0" type="int"/>
+            <dataSetProperty name="expected" value="" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="simpleTestValue" />
+            <dataSetProperty name="lastCharCount" value="-5" type="int"/>
+            <dataSetProperty name="expected" value="" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="simpleTestValue" />
+            <dataSetProperty name="lastCharCount" value="5" type="int"/>
+            <dataSetProperty name="expected" value="Value" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="simpleTestValue" />
+            <dataSetProperty name="lastCharCount" value="999" type="int"/>
+            <dataSetProperty name="expected" value="simpleTestValue" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Árvíztűrő 語 Tükörfúrógép" />
+            <dataSetProperty name="lastCharCount" value="999" type="int"/>
+            <dataSetProperty name="expected" value="Árvíztűrő 語 Tükörfúrógép" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Árvíztűrő 語 Tükörfúrógép" />
+            <dataSetProperty name="lastCharCount" value="13" type="int"/>
+            <dataSetProperty name="expected" value=" Tükörfúrógép" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Árvíztűrő 語 Tükörfúrógép" />
+            <dataSetProperty name="lastCharCount" value="14" type="int"/>
+            <dataSetProperty name="expected" value="語 Tükörfúrógép" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="mapGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="simple TestValue" />
+            <dataSetProperty name="delimiter" value=" " />
+            <dataSetProperty name="expectedCallCount" value="2" type="int" />
+            <dataSetProperty name="expectedResultAsArray" value="simple;TestValue" type="array" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Árvíztűrő 語 Tükörfúrógép" />
+            <dataSetProperty name="delimiter" value=" " />
+            <dataSetProperty name="expectedCallCount" value="3" type="int" />
+            <dataSetProperty name="expectedResultAsArray" value="Árvíztűrő;語;Tükörfúrógép" type="array" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="testValue" />
+            <dataSetProperty name="delimiter" value=" " />
+            <dataSetProperty name="expectedCallCount" value="1" type="int" />
+            <dataSetProperty name="expectedResultAsArray" value="testValue" type="array" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="splitCamelCaseGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="árvíztűrőTükörfúrógép" />
+            <dataSetProperty name="expected" value="árvíztűrő Tükörfúrógép" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="ÁrvíztűrőTükörfúrógép" />
+            <dataSetProperty name="expected" value="Árvíztűrő Tükörfúrógép" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="test" />
+            <dataSetProperty name="expected" value="test" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="splitSnakeCaseGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="árvíztűrő_tükörfúrógép" />
+            <dataSetProperty name="expected" value="árvíztűrő tükörfúrógép" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="extreme_long_string_with_many_$!+_:;?{}_spacial_character" />
+            <dataSetProperty name="expected" value="extreme long string with many $!+ :;?{} spacial character" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="testValue" />
+            <dataSetProperty name="expected" value="testValue" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="caseFreeGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="testValue_HelloWorld" />
+            <dataSetProperty name="expected" value="test Value Hello World" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Árvíztűrő_TükörFúrógép" />
+            <dataSetProperty name="expected" value="Árvíztűrő Tükör Fúrógép" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="segmentGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="test-simple-segmentable-value" />
+            <dataSetProperty name="delimiter" value="-" />
+            <dataSetProperty name="index" value="3" type="int" />
+            <dataSetProperty name="expected" value="segmentable" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="test-simple segmentable-value" />
+            <dataSetProperty name="delimiter" value="" />
+            <dataSetProperty name="index" value="2" type="int" />
+            <dataSetProperty name="expected" value="segmentable-value" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="test-simple-segmentable-value" />
+            <dataSetProperty name="delimiter" value="-" />
+            <dataSetProperty name="index" value="999" type="int" />
+            <dataSetProperty name="expected" value="" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="test-simple-segmentable-value" />
+            <dataSetProperty name="delimiter" value="" />
+            <dataSetProperty name="index" value="0" type="int" />
+            <dataSetProperty name="expected" value="" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="TűrőárvízTükörárvízFúrógép" />
+            <dataSetProperty name="delimiter" value="árvíz" />
+            <dataSetProperty name="index" value="2" type="int" />
+            <dataSetProperty name="expected" value="Tükör" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="limitGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id urna ut turpis feugiat convallis. Fusce placerat lacinia justo, id faucibus augue imperdiet in. Cras faucibus gravida tortor, sit amet ornare dui pulvinar eget." />
+            <dataSetProperty name="limit" value="75" type="int" />
+            <dataSetProperty name="end" value="..." />
+            <dataSetProperty name="expected" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ur..." />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Lorem ipsum dolor sit amet" />
+            <dataSetProperty name="limit" value="75" type="int" />
+            <dataSetProperty name="end" value="..." />
+            <dataSetProperty name="expected" value="Lorem ipsum dolor sit amet" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Lorem ipsum dolor sit amet" />
+            <dataSetProperty name="limit" value="12" type="int" />
+            <dataSetProperty name="end" value="..." />
+            <dataSetProperty name="expected" value="Lorem ipsum..." />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="caseConversionGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="this is a simple string" />
+            <dataSetProperty name="exTitle" value="This Is A Simple String" />
+            <dataSetProperty name="exSnake" value="this_is_a_simple_string" />
+            <dataSetProperty name="exPascal" value="ThisIsASimpleString" />
+            <dataSetProperty name="exCame" value="thisIsASimpleString" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="őrvíztűrő űrfúrógép" />
+            <dataSetProperty name="exTitle" value="Őrvíztűrő Űrfúrógép" />
+            <dataSetProperty name="exSnake" value="őrvíztűrő_űrfúrógép" />
+            <dataSetProperty name="exPascal" value="ŐrvíztűrőŰrfúrógép" />
+            <dataSetProperty name="exCamel" value="őrvíztűrőŰrfúrógép" />
         </dataSet>
     </testGroup>
 </testGroups>

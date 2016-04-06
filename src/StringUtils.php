@@ -37,7 +37,7 @@ class StringUtils {
      * @return bool
      */
     public static function endsWith($input, $match) {
-        return ((string) $match === substr($input, -strlen($match)));
+        return ((string) $match === mb_substr($input, (mb_strlen($match) * -1)));
     }
 
     /**
@@ -50,7 +50,7 @@ class StringUtils {
      * @return bool
      */
     public static function contains($input, $match) {
-        return (mb_stripos($input, $match, 0) !== FALSE);
+        return (mb_strpos($input, $match, 0) !== FALSE);
     }
 
 }

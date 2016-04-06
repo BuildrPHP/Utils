@@ -46,6 +46,17 @@ class StringObject
     }
 
     /**
+     * Remove all whitespace character from the given string
+     *
+     * @return \BuildR\Utils\StringObject
+     */
+    public function removeWhitespace() {
+        $result = str_replace(["\\r", "\\n", "\\t", "\\0"], '', $this->string);
+
+        return $this->createClone($result);
+    }
+
+    /**
      * Appends the given substring to the current string
      *
      * @param string $substring
@@ -74,16 +85,10 @@ class StringObject
     /**
      * Return an array where each element represent a single character from the current string
      *
-     * @param $withoutLineBreaks bool If TRUE, the length is returned without the line-breaks characters (\r \n \t)
-     *
      * @return array
      */
-    public function chars($withoutLineBreaks = TRUE) {
+    public function chars() {
         $string = $this->string;
-
-        if($withoutLineBreaks === TRUE) {
-            $string = $this->removeLineBreaks($this->string);
-        }
 
         return preg_split('/(?<!^)(?!$)/u', $string);
     }
@@ -91,16 +96,10 @@ class StringObject
     /**
      * Determines the length of the current string
      *
-     * @param $withoutLineBreaks bool If TRUE, the length is returned without the line-breaks characters (\r \n \t)
-     *
      * @return int
      */
-    public function length($withoutLineBreaks = TRUE) {
+    public function length() {
         $string = $this->string;
-
-        if($withoutLineBreaks === TRUE) {
-            $string = $this->removeLineBreaks($this->string);
-        }
 
         return mb_strlen($string);
     }
@@ -110,11 +109,14 @@ class StringObject
      * If the character is a whitespace this function will return
      * TRUE to indicate that index is part of the string
      *
+     * This function counts characters from 1
+     *
      * @param int $index
      *
      * @return \BuildR\Utils\StringObject
      */
     public function charAt($index) {
+        $index = $index - 1;
         $chars = $this->chars();
         $char = (isset($chars[$index])) ? $chars[$index] : '';
 
@@ -150,6 +152,8 @@ class StringObject
      * @param string $match
      *
      * @return bool
+     *
+     * @codeCoverageIgnore
      */
     public function startsWith($match) {
         return StringUtils::startsWith($this->string, $match);
@@ -162,6 +166,8 @@ class StringObject
      * @param string $match
      *
      * @return bool
+     *
+     * @codeCoverageIgnore
      */
     public function endsWith($match) {
         return StringUtils::endsWith($this->string, $match);
@@ -174,6 +180,8 @@ class StringObject
      * @param string $match
      *
      * @return bool
+     *
+     * @codeCoverageIgnore
      */
     public function contains($match) {
         return StringUtils::contains($this->string, $match);
@@ -284,6 +292,69 @@ class StringObject
     }
 
     /**
+     * Split string along the delimiter
+     *
+     * @param string $delimiter
+     *
+     * @return array
+     */
+    public function split($delimiter) {
+        $delimiter = (empty($delimiter)) ? ' ' : $delimiter;
+
+        return explode($delimiter, $this->string);
+    }
+
+    /**
+     * Split the string along the delimiter and returns
+     * the given index from the segments
+     *
+     * @param string $delimiter
+     * @param int $index
+     *
+     * @return \BuildR\Utils\StringObject
+     */
+    public function segment($delimiter, $index) {
+        $parts = $this->split($delimiter);
+        $returnValue = (isset($parts[$index - 1])) ? $parts[$index - 1] : '';
+
+        return $this->createClone($returnValue);
+    }
+
+    /**
+     * Split string along the delimiter and
+     * return the last segment
+     *
+     * @param string $delimiter
+     *
+     * @return \BuildR\Utils\StringObject
+     *
+     * @codeCoverageIgnore
+     */
+    public function lastSegment($delimiter) {
+        $parts = $this->split($delimiter);
+        $returnValue = end($parts);
+
+        return $this->createClone($returnValue);
+    }
+
+    /**
+     * Split the string along the delimiter and
+     * returns the first segment
+     *
+     * @param string $delimiter
+     *
+     * @return \BuildR\Utils\StringObject
+     *
+     * @codeCoverageIgnore
+     */
+    public function firstSegment($delimiter) {
+        $parts = $this->split($delimiter);
+        $returnValue = current($parts);
+
+        return $this->createClone($returnValue);
+    }
+
+    /**
      * Split down cameCase or PascalCase strings
      *
      * Example:
@@ -293,7 +364,7 @@ class StringObject
      * @return \BuildR\Utils\StringObject
      */
     public function splitCamelCase() {
-        preg_match_all('/((?:^|[A-Z])[a-z_]+)/', $this->string, $matches);
+        preg_match_all('/((?:^|[\p{Lu}])[\p{Ll}_]+)/mu', $this->string, $matches);
         $returnValue = implode(' ', $matches[0]);
 
         return $this->createClone($returnValue);
@@ -328,64 +399,9 @@ class StringObject
      * @return \BuildR\Utils\StringObject
      */
     public function caseFree() {
-        $returnValue = $this->splitCamelCase()->splitSnakeCase();
+        $returnValue = $this->splitSnakeCase()->splitCamelCase();
 
         return $this->createClone((string) $returnValue);
-    }
-
-    /**
-     * Split string along the delimiter
-     *
-     * @param string $delimiter
-     *
-     * @return array
-     */
-    public function split($delimiter) {
-        return explode($delimiter, $this->string);
-    }
-
-    /**
-     * Split the string along the delimiter and returns
-     * the given index from the segments
-     *
-     * @param string $delimiter
-     * @param int $index
-     *
-     * @return \BuildR\Utils\StringObject
-     */
-    public function segment($delimiter, $index) {
-        $parts = $this->split($delimiter);
-        $returnValue = (isset($parts[$index])) ? $parts[$index] : '';
-
-        return $this->createClone($returnValue);
-    }
-
-    /**
-     * Split string along the delimiter and
-     * return the last segment
-     *
-     * @param string $delimiter
-     *
-     * @return \BuildR\Utils\StringObject
-     */
-    public function lastSegment($delimiter) {
-        $returnValue = end($this->split($delimiter));
-
-        return $this->createClone($returnValue);
-    }
-
-    /**
-     * Split the string along the delimiter and
-     * returns the first segment
-     *
-     * @param string $delimiter
-     *
-     * @return \BuildR\Utils\StringObject
-     */
-    public function firstSegment($delimiter) {
-        $returnValue = current($this->split($delimiter));
-
-        return $this->createClone($returnValue);
     }
 
     /**
@@ -402,7 +418,7 @@ class StringObject
         $returnValue = $this->string;
 
         if($this->length() > $limit) {
-            $returnValue = rtrim((string) $this->substring(0, $limit)) . $end;
+            $returnValue = rtrim((string) $this->first($limit)->toString()) . $end;
         }
 
         return $this->createClone($returnValue);
@@ -439,7 +455,7 @@ class StringObject
      * @return \BuildR\Utils\StringObject
      */
     public function toPascalCase() {
-        $newValue = ucwords((string) $this->toLower());
+        $newValue = $this->toLower()->toTitleCase()->toString();
         $newValue = implode('', explode(' ', $newValue));
 
         return $this->createClone($newValue);
@@ -464,22 +480,12 @@ class StringObject
                 continue;
             }
 
-            $result .= ucfirst($part);
+            //TODO: implement own ucfirst and ucword method in this class for MB support
+            $result .= $this->createClone($part)->toTitleCase()->toString();
             $index++;
         }
 
         return $this->createClone($result);
-    }
-
-    /**
-     * Remove all line-break character from the given string
-     *
-     * @param string $string
-     *
-     * @return mixed
-     */
-    protected function removeLineBreaks($string) {
-        return str_replace(["\\r", "\\n", "\\t"], '', $string);
     }
 
     /**
@@ -524,6 +530,8 @@ class StringObject
 
     /**
      * {@inheritDoc}
+     *
+     * @codeCoverageIgnore
      */
     public function count() {
         return $this->length();
