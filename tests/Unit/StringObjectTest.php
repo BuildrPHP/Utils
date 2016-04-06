@@ -212,7 +212,7 @@ class StringObjectTest extends BuildR_TestCase {
     public function testSubstringFunctionWorksCorrectly($input, $start, $length, $expected) {
         $instance = StringFactory::create($input);
 
-        if($length === TRUE) {
+        if(is_string($length) && $length === '-') {
             $result = $instance->substring($start);
         } else {
             $result = $instance->substring($start, $length);

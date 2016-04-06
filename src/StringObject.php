@@ -227,12 +227,17 @@ class StringObject
      * Returns the defined part of the current string
      *
      * @param int $start Tha starting character (If -1 starts from the end)
-     * @param int $length
+     * @param int|NULL $length
      *
      * @return \BuildR\Utils\StringObject
      */
-    public function substring($start, $length = PHP_INT_MAX) {
-        $newValue = mb_substr($this->string, $start, $length);
+    public function substring($start, $length = NULL) {
+        //TODO: Fix to PHP #42101
+        if($length === NULL) {
+            $newValue = mb_substr($this->string, $start);
+        } else {
+            $newValue = mb_substr($this->string, $start, $length);
+        }
 
         return $this->createClone($newValue);
     }
@@ -269,7 +274,7 @@ class StringObject
 
         $newValue = $this->substring(($charCount * -1));
 
-        return $this->createClone((string) $newValue);
+        return $this->createClone($newValue);
     }
 
     /**
@@ -500,6 +505,10 @@ class StringObject
      * @return \BuildR\Utils\StringObject
      */
     protected function createClone($newValue) {
+        if($newValue instanceof StringObject) {
+            $newValue == $newValue->toString();
+        }
+
         $newInstance = clone $this;
         $newInstance->string = $newValue;
 
