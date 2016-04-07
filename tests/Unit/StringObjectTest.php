@@ -2,8 +2,8 @@
 
 use BuildR\TestTools\BuildR_TestCase;
 use BuildR\TestTools\DataSetLoader\DataSetLoaderFactory;
-use BuildR\Utils\Factories\StringFactory;
 use BuildR\Utils\StringObject;
+use function BuildR\Utils\Functions\str;
 
 class StringObjectTest extends BuildR_TestCase {
 
@@ -107,7 +107,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerRemoveWhitespaceFunction
      */
     public function testRemoveWhitespaceWorksCorrectly($input, $expected) {
-        $instance = StringFactory::create($input);
+        $instance = str($input);
         $actual = $instance->removeWhitespace()->toString();
 
         $this->assertEquals($expected, $actual);
@@ -117,7 +117,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerAppendFunction
      */
     public function testAppendFunctionWorksCorrectly($input, $append, $expectedResult) {
-        $instance = StringFactory::create($input);
+        $instance = str($input);
         $result = $instance->append($append);
 
         $this->assertEquals($expectedResult, $result->toString());
@@ -127,7 +127,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerPrependFunction
      */
     public function testPrependFunctionWorksCorrectly($input, $prepend, $expectedResult) {
-        $instance = StringFactory::create($input);
+        $instance = str($input);
         $result = $instance->prepend($prepend);
 
         $this->assertEquals($expectedResult, $result->toString());
@@ -137,7 +137,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerCharsFunction
      */
     public function testCharsFunctionWorksCorrectly($input, $expectedResult) {
-        $instance = StringFactory::create($input);
+        $instance = str($input);
         $chars = $instance->chars();
         $iterator = $instance->getIterator();
 
@@ -151,7 +151,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @covers BuildR\Utils\StringObject::count
      */
     public function testLengthFunctionWorksCorrectly($input, $expectedResult) {
-        $instance = StringFactory::create($input);
+        $instance = str($input);
 
         $this->assertEquals($expectedResult, $instance->length());
     }
@@ -160,7 +160,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerCharAtFunction
      */
     public function testCharAtFunctionWorksCorrectly($input, $position, $expected) {
-        $instance = StringFactory::create($input);
+        $instance = str($input);
         $char = $instance->charAt($position)->toString();
 
         $this->assertEquals($expected, $char);
@@ -170,7 +170,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerToLowerFunction
      */
     public function testToLowerFunctionWorksCorrectly($input, $expected) {
-        $instance = StringFactory::create($input);
+        $instance = str($input);
         $actual = $instance->toLower()->toString();
 
         $this->assertEquals($expected, $actual);
@@ -180,7 +180,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerToUpperFunction
      */
     public function testToUpperFunctionWorksCorrectly($input, $expected) {
-        $instance = StringFactory::create($input);
+        $instance = str($input);
         $actual = $instance->toUpper()->toString();
 
         $this->assertEquals($expected, $actual);
@@ -190,7 +190,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerContainsAllFunction
      */
     public function testContainsAllFunctionWorksCorrectly($input, $containedValues, $expected) {
-        $instance = StringFactory::create($input);
+        $instance = str($input);
         $result = $instance->containsAll($containedValues);
 
         $this->assertEquals($expected, $result);
@@ -200,7 +200,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerContainsAnyFunction
      */
     public function testContainsAnyFunctionWorksCorrectly($input, $containedValues, $expected) {
-        $instance = StringFactory::create($input);
+        $instance = str($input);
         $result = $instance->containsAny($containedValues);
 
         $this->assertEquals($expected, $result);
@@ -210,7 +210,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerSubstringFunction
      */
     public function testSubstringFunctionWorksCorrectly($input, $start, $length, $expected) {
-        $instance = StringFactory::create($input);
+        $instance = str($input);
 
         if(is_string($length) && $length === '-') {
             $result = $instance->substring($start);
@@ -225,7 +225,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerFirstFunction
      */
     public function testFirstFunctionWorksCorrectly($input, $firstCharCount, $expected) {
-        $actual = StringFactory::create($input)->first($firstCharCount)->toString();
+        $actual = str($input)->first($firstCharCount)->toString();
 
         $this->assertEquals($expected, $actual);
     }
@@ -234,7 +234,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerLastFunction
      */
     public function testLastFunctionWorksCorrectly($input, $lastCharCount, $expected) {
-        $actual = StringFactory::create($input)->last($lastCharCount)->toString();
+        $actual = str($input)->last($lastCharCount)->toString();
 
         $this->assertEquals($expected, $actual);
     }
@@ -250,7 +250,7 @@ class StringObjectTest extends BuildR_TestCase {
         $callCount = 0;
         $self = $this;
 
-        StringFactory::create($input)->map(
+        str($input)->map(
             $delimiter,
             function($value, $delimiter) use(&$result, &$callCount, &$self, &$origDelimiter)  {
                 $self->assertEquals($origDelimiter, $delimiter);
@@ -267,7 +267,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerSplitCamelCaseFunction
      */
     public function testCamelCaseFunctionWorksCorrectly($input, $expected) {
-        $actual = StringFactory::create($input)->splitCamelCase()->toString();
+        $actual = str($input)->splitCamelCase()->toString();
 
         $this->assertEquals($expected, $actual);
     }
@@ -276,7 +276,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerSplitSnakeCaseFunction
      */
     public function testCamelSnakeFunctionWorksCorrectly($input, $expected) {
-        $actual = StringFactory::create($input)->splitSnakeCase()->toString();
+        $actual = str($input)->splitSnakeCase()->toString();
 
         $this->assertEquals($expected, $actual);
     }
@@ -285,7 +285,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerCaseFreeFunction
      */
     public function testCaseFreeFunctionWorksCorrectly($input, $expected) {
-        $actual = StringFactory::create($input)->caseFree()->toString();
+        $actual = str($input)->caseFree()->toString();
 
         $this->assertEquals($expected, $actual);
     }
@@ -297,7 +297,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @cover BuildR\Utils\StringObject::lastSegment
      */
     public function testSegmentFunctionWorksCorrectly($input, $delimiter, $segmentNo, $expected) {
-        $actual = StringFactory::create($input)->segment($delimiter, $segmentNo)->toString();
+        $actual = str($input)->segment($delimiter, $segmentNo)->toString();
 
         $this->assertEquals($expected, $actual);
     }
@@ -306,7 +306,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerLimitFunction
      */
     public function testLimitFunctionWorksCorrectly($input, $limit, $end, $expected) {
-        $actual = StringFactory::create($input)->limit($limit, $end)->toString();
+        $actual = str($input)->limit($limit, $end)->toString();
 
         $this->assertEquals($expected, $actual);
     }
@@ -315,7 +315,7 @@ class StringObjectTest extends BuildR_TestCase {
      * @dataProvider providerCaseConversionFunctions
      */
     public function testCaseConversionWorksCorrectly($input, $title, $snake, $pascal, $camel) {
-        $instance = StringFactory::create($input);
+        $instance = str($input);
 
         $this->assertEquals($title, $instance->toTitleCase()->toString());
         $this->assertEquals($snake, $instance->toSnakeCase()->toString());

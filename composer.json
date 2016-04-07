@@ -40,6 +40,9 @@
     "squizlabs/php_codesniffer": "2.*"
   },
   "autoload": {
+    "files": [
+      "src/Functions/StringFunctions.php"
+    ],
     "psr-4": {
       "BuildR\\Utils\\": "src/"
     }
