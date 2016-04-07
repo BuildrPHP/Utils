@@ -1,0 +1,65 @@
+<testGroups>
+    <testGroup name="startsWithGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="testValue" />
+            <dataSetProperty name="match" value="test" />
+            <dataSetProperty name="expected" value="true" type="bool" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="TestValue" />
+            <dataSetProperty name="match" value="test" />
+            <dataSetProperty name="expected" value="false" type="bool" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Árvíztűrő 語 Tükörfúrógép" />
+            <dataSetProperty name="match" value="Árvíztűrő" />
+            <dataSetProperty name="expected" value="true" type="bool" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value=" 語 Tükörfúrógép" />
+            <dataSetProperty name="match" value=" 語 " />
+            <dataSetProperty name="expected" value="true" type="bool" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="  Tükörfúrógép" />
+            <dataSetProperty name="match" value="  " />
+            <dataSetProperty name="expected" value="true" type="bool" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="endsWithGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="testValue" />
+            <dataSetProperty name="match" value="Value" />
+            <dataSetProperty name="expected" value="true" type="bool" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="TestValue" />
+            <dataSetProperty name="match" value="value" />
+            <dataSetProperty name="expected" value="false" type="bool" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="Árvíztűrő 語 Tükörfúrógép" />
+            <dataSetProperty name="match" value=" Tükörfúrógép" />
+            <dataSetProperty name="expected" value="true" type="bool" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value=" 語 Tükörfúrógép" />
+            <dataSetProperty name="match" value="語 Tükörfúrógép" />
+            <dataSetProperty name="expected" value="true" type="bool" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="  Tükörfúrógép   " />
+            <dataSetProperty name="match" value="gép   " />
+            <dataSetProperty name="expected" value="true" type="bool" />
+        </dataSet>
+    </testGroup>
+</testGroups>

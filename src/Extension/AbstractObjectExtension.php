@@ -30,7 +30,7 @@ abstract class AbstractObjectExtension implements ObjectExtensionInterface {
             return (bool) $this->defineMethods()[$methodName]['returnsRaw'];
         }
 
-        return TRUE;
+        return TRUE; //@codeCoverageIgnore
     }
 
     /**

@@ -33,20 +33,24 @@ abstract class AbstractExtensionReceiver implements ExtensionReceiverInterface {
                 return $this->processResult($result);
             }
         }
-    }
+    } //@codeCoverageIgnore
 
     /**
      * {@inheritDoc}
      */
     public function loadExtension(ObjectExtensionInterface $extension) {
+        if($this->isExtensionLoaded($extension)) {
+            return; //@codeCoverageIgnore
+        }
+
         $type = $this->shouldReceiveType();
+        $extClass = get_class($extension);
 
         if(!($extension instanceof $type)) {
-            $message = 'This object only take ' . $type . ' extensions! Given type: ' . gettype($extension);
+            $message = 'This object only take ' . $type . ' extensions! Given: ' . $extClass;
             throw new InvalidArgumentException($message);
         }
 
-        $extClass = get_class($extension);
         $this->extensions[$extClass] = $extension;
     }
 
