@@ -53,4 +53,36 @@ class StringUtils {
         return (mb_strpos($input, $match, 0) !== FALSE);
     }
 
+    /**
+     * At this time PHP MBString extension does not have a mulibyte version
+     * of the PHP's ucfirst() method. This is a simple implementation.
+     *
+     * @param string $input
+     *
+     * @return string
+     */
+    public static function multiByteUcfirst($input) {
+        $firstChar = mb_strtoupper(mb_substr($input, 0, 1));
+        $remaining = mb_substr($input, 1, mb_strlen($input));
+
+        return $firstChar . $remaining;
+    }
+
+    /**
+     *At this time PHP MBString extension does not have a mulibyte version
+     * of the PHP's ucwords() method. This is a simple implementation.
+     *
+     * This function has a very big limitation against PHP native implementation,
+     * this function only split string trough spaces instead of any whitespace
+     * character
+     *
+     * @param $input
+     */
+    public static function multiByteUcwords($input) {
+        $parts = explode(' ', $input);
+        $result = array_map(self::class . '::multiByteUcfirst', $parts);
+
+        return implode(' ', $result);
+    }
+
 }

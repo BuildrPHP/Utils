@@ -16,6 +16,15 @@ class StringHelperTest extends BuildR_TestCase {
         return DataSetLoaderFactory::XML(self::TEST_FILE, 'endsWithGroup')->getResult();
     }
 
+    public function providerMultiByteUcfirst() {
+        return DataSetLoaderFactory::XML(self::TEST_FILE, 'multiByteUcfirstGroup')->getResult();
+    }
+
+    public function providerMultiByteUcwords() {
+        return DataSetLoaderFactory::XML(self::TEST_FILE, 'multiByteUcwordsGroup')->getResult();
+    }
+
+
     /**
      * @dataProvider providerStartsWith
      */
@@ -30,6 +39,24 @@ class StringHelperTest extends BuildR_TestCase {
      */
     public function testEndsWithFunctionWorksCorrectly($input, $match, $expected) {
         $actual = StringUtils::endsWith($input, $match);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @dataProvider providerMultiByteUcfirst
+     */
+    public function testMultiByteUcfirstWorksCorrectly($input, $expected) {
+        $actual = StringUtils::multiByteUcfirst($input);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @dataProvider providerMultiByteUcwords
+     */
+    public function testMultiByteUcwordsWorksCorrectly($input, $expected) {
+        $actual = StringUtils::multiByteUcwords($input);
 
         $this->assertEquals($expected, $actual);
     }

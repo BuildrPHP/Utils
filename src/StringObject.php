@@ -146,6 +146,34 @@ class StringObject
     }
 
     /**
+     * Format the current string first character to uppercase.
+     * Leave any other character untouched
+     *
+     * @return \BuildR\Utils\StringObject
+     *
+     * @codeCoverageIgnore
+     */
+    public function ucfirst() {
+        $result = StringUtils::multiByteUcfirst($this->string);
+
+        return $this->createClone($result);
+    }
+
+    /**
+     * Split the current string trough spaces and makes every words first
+     * character uppercase. Leave any other character untouched
+     *
+     * @return \BuildR\Utils\StringObject
+     *
+     * @codeCoverageIgnore
+     */
+    public function ucwords() {
+        $result = StringUtils::multiByteUcwords($this->string);
+
+        return $this->createClone($result);
+    }
+
+    /**
      * Determines that the current string starts with
      * the given substring
      *
@@ -485,8 +513,7 @@ class StringObject
                 continue;
             }
 
-            //TODO: implement own ucfirst and ucword method in this class for MB support
-            $result .= $this->createClone($part)->toTitleCase()->toString();
+            $result .= (string) $this->createClone($part)->ucfirst();
             $index++;
         }
 

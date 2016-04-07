@@ -6,28 +6,28 @@ class stringObjectWrongExtension implements DummyObjectExtensionInterface {
      * {@inheritDoc}
      */
     public function defineMethods() {
-        // TODO: Implement defineMethods() method.
+        return TRUE;
     }
 
     /**
      * {@inheritDoc}
      */
     public function hasMethod($methodName) {
-        // TODO: Implement hasMethod() method.
+        return TRUE;
     }
 
     /**
      * {@inheritDoc}
      */
     public function methodReturnedRawResult($methodName) {
-        // TODO: Implement methodReturnedRawResult() method.
+        return TRUE;
     }
 
     /**
      * {@inheritDoc}
      */
     public function runMethod($methodName, $startingValue, array $additionalArguments) {
-        // TODO: Implement runMethod() method.
+        return TRUE;
     }
     
 }

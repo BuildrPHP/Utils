@@ -62,4 +62,48 @@
             <dataSetProperty name="expected" value="true" type="bool" />
         </dataSet>
     </testGroup>
+
+    <testGroup name="multiByteUcfirstGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="test" />
+            <dataSetProperty name="expected" value="Test" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="ő" />
+            <dataSetProperty name="expected" value="Ő" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="  " />
+            <dataSetProperty name="expected" value="  " />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="ÁrvíztŰrő" />
+            <dataSetProperty name="expected" value="ÁrvíztŰrő" />
+        </dataSet>
+    </testGroup>
+
+    <testGroup name="multiByteUcwordsGroup">
+        <dataSet>
+            <dataSetProperty name="input" value="test value" />
+            <dataSetProperty name="expected" value="Test Value" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="ő" />
+            <dataSetProperty name="expected" value="Ő" />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="  " />
+            <dataSetProperty name="expected" value="  " />
+        </dataSet>
+
+        <dataSet>
+            <dataSetProperty name="input" value="árvíztűrŐ tükörfúrógép" />
+            <dataSetProperty name="expected" value="ÁrvíztűrŐ Tükörfúrógép" />
+        </dataSet>
+    </testGroup>
 </testGroups>
