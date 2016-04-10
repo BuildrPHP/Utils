@@ -332,6 +332,8 @@ class StringObject
      * @return array
      */
     public function split($delimiter = ' ') {
+        $delimiter = (empty($delimiter)) ? ' ' : $delimiter;
+
         return explode($delimiter, $this->string);
     }
 
