@@ -16,3 +16,39 @@ baseUrl: .
 
 menu:
     sections:
+          main:
+              name: Getting Started
+              items:
+                  home:
+                      text: Introduction
+                      relativeUrl: index.html
+                  installation:
+                      text: Installation
+                      relativeUrl: doc/installation.html
+          string:
+              name: String Features
+              items:
+                  StringObject:
+                      text: Object
+                      relativeUrl: doc/string-object.html
+                  StringUtils:
+                      text: Utils
+                      relativeUrl: doc/string-utils.html
+                  quickCreation:
+                      text: Qucick Access
+                      relativeUrl: doc/string-quick-access.html
+          extensions:
+              name: Extension System
+              items:
+                  concept:
+                      text: Concept
+                      relativeUrl: doc/extension-concept.html
+          others:
+              name: Others
+              items:
+                  api:
+                      text: API Documentation
+                      relativeUrl: doc/api-doc.html
+                  testing:
+                    text: Testing
+                    relativeUrl: doc/testing.html

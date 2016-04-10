@@ -307,13 +307,13 @@ class StringObject
 
     /**
      * Iterates over parts of the string. The current string split through
-     * the given delimiter and tha closure will be called on all elements.
+     * the given delimiter and the closure will be called on all elements.
      *
      * The closer takes two arguments:
      *  - (string) $part The current part of the string
      *  - (string) $delimiter the delimiter passed to this function
      *
-     * @param $delimiter
+     * @param string $delimiter
      * @param callable $callback
      */
     public function map($delimiter, callable $callback) {
@@ -331,9 +331,7 @@ class StringObject
      *
      * @return array
      */
-    public function split($delimiter) {
-        $delimiter = (empty($delimiter)) ? ' ' : $delimiter;
-
+    public function split($delimiter = ' ') {
         return explode($delimiter, $this->string);
     }
 
@@ -388,6 +386,26 @@ class StringObject
     }
 
     /**
+     * Limit the length of the current string. If the current string is
+     * longer tha the given limit chopped down to limit and the end
+     * substring will be concatenated.
+     *
+     * @param int $limit
+     * @param string $end
+     *
+     * @return \BuildR\Utils\StringObject
+     */
+    public function limit($limit = 120, $end = '...') {
+        $returnValue = $this->string;
+
+        if($this->length() > $limit) {
+            $returnValue = rtrim((string) $this->first($limit)->toString()) . $end;
+        }
+
+        return $this->createClone($returnValue);
+    }
+
+    /**
      * Split down cameCase or PascalCase strings
      *
      * Example:
@@ -435,26 +453,6 @@ class StringObject
         $returnValue = $this->splitSnakeCase()->splitCamelCase();
 
         return $this->createClone((string) $returnValue);
-    }
-
-    /**
-     * Limit the length of the current string. If the current string is
-     * longer tha the given limit chopped down to limit and the end
-     * substring will be concatenated.
-     *
-     * @param int $limit
-     * @param string $end
-     *
-     * @return \BuildR\Utils\StringObject
-     */
-    public function limit($limit = 120, $end = '...') {
-        $returnValue = $this->string;
-
-        if($this->length() > $limit) {
-            $returnValue = rtrim((string) $this->first($limit)->toString()) . $end;
-        }
-
-        return $this->createClone($returnValue);
     }
 
     /**
