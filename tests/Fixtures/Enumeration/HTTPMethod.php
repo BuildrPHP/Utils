@@ -1,12 +1,12 @@
 <?php namespace BuildR\Utils\Tests\Fixtures\Enumeration;
 
-use BuildR\Utils\Enumeration\AbstractEnumeration;
+use BuildR\Utils\Enumeration\EnumerationBase;
 
-class HTTPMethod extends AbstractEnumeration {
+class HTTPMethod extends EnumerationBase {
 
-    const METHOD_GET = 'GET';
+    const GET = 'GET';
 
-    const METHOD_POST = 'POST';
+    const POST = 'POST';
 
     /* ... */
 

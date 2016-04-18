@@ -1,7 +1,6 @@
 <?php namespace BuildR\Utils\Tests\Unit\Enumeration;
 
-use BuildR\Foundation\Exception\BadMethodCallException;
-use BuildR\Foundation\Exception\UnexpectedValueException;
+use BuildR\Utils\Enumeration\Exception\EnumerationException;
 use BuildR\Utils\Tests\Fixtures\Enumeration\HTTPMethod;
 
 class EnumerationTest extends \PHPUnit_Framework_TestCase {
@@ -12,7 +11,7 @@ class EnumerationTest extends \PHPUnit_Framework_TestCase {
     protected $enumeration;
 
     public function setUp() {
-        $this->enumeration = HTTPMethod::METHOD_GET();
+        $this->enumeration = HTTPMethod::GET();
 
         parent::setUp();
     }
@@ -25,55 +24,59 @@ class EnumerationTest extends \PHPUnit_Framework_TestCase {
 
     public function wrongKeyValidationProvider() {
         return [
-            [FALSE, BadMethodCallException::class, 'The key must be a string! boolean given!'],
-            [2.8, BadMethodCallException::class, 'The key must be a string! double given!'],
-            [7E-10, BadMethodCallException::class, 'The key must be a string! double given!'],
-            [243, BadMethodCallException::class, 'The key must be a string! integer given!'],
-            [NULL, BadMethodCallException::class, 'The key must be a string! NULL given!'],
-            [[], BadMethodCallException::class, 'The key must be a string! array given!'],
+            [FALSE, 'The key must be a string! boolean given!'],
+            [2.8, 'The key must be a string! double given!'],
+            [7E-10, 'The key must be a string! double given!'],
+            [243, 'The key must be a string! integer given!'],
+            [NULL, 'The key must be a string! NULL given!'],
+            [[], 'The key must be a string! array given!'],
         ];
     }
 
     public function wrongConstructorParameterProvider() {
         return [
-            ['PUT', UnexpectedValueException::class, 'This enumeration is not contains any constant like: PUT'],
-            [FALSE, UnexpectedValueException::class, 'This enumeration is not contains any constant like: '],
-            [150, UnexpectedValueException::class, 'This enumeration is not contains any constant like: 150'],
-            [NULL, UnexpectedValueException::class, 'This enumeration is not contains any constant like: '],
+            ['PUT', 'This enumeration is not contains any constant like: PUT'],
+            [FALSE, 'This enumeration is not contains any constant like: '],
+            [150, 'This enumeration is not contains any constant like: 150'],
+            [NULL, 'This enumeration is not contains any constant like: '],
         ];
     }
 
     /**
      * @dataProvider wrongKeyValidationProvider
      */
-    public function testIsThrowsExceptionWhenCalledValidationWithNonValidInput($type, $exClass, $exString) {
-        $this->setExpectedException($exClass, $exString);
+    public function testIsThrowsExceptionWhenCalledValidationWithNonValidInput($type, $exString) {
+        $this->expectException(EnumerationException::class);
+        $this->expectExceptionMessage($exString);
+
         HTTPMethod::isValidKey($type);
     }
 
     /**
      * @dataProvider wrongConstructorParameterProvider
      */
-    public function testIsThrowsAnExceptionWhenConstructedWithUnknownValue($value, $exClass, $exString) {
-        $this->setExpectedException($exClass, $exString);
+    public function testIsThrowsAnExceptionWhenConstructedWithUnknownValue($value, $exString) {
+        $this->expectException(EnumerationException::class);
+        $this->expectExceptionMessage($exString);
+
         new HTTPMethod($value);
     }
 
     public function testIsReturnsEnumerationAsValidArray() {
         $expected = [
-            'METHOD_GET' => 'GET',
-            'METHOD_POST' => 'POST',
+            'GET' => 'GET',
+            'POST' => 'POST',
         ];
 
         $result = HTTPMethod::toArray();
 
         $this->assertCount(count($expected), $result);
         $this->assertEquals($expected, $result);
-        $this->assertArrayHasKey('METHOD_GET', $result);
+        $this->assertArrayHasKey('GET', $result);
     }
 
     public function testItReturnsTheEnumerationKeysProperly() {
-        $expected = ['METHOD_GET', 'METHOD_POST'];
+        $expected = ['GET', 'POST'];
 
         $result = HTTPMethod::getKeys();
 
@@ -82,23 +85,9 @@ class EnumerationTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testIsProperlyValidatesKeys() {
-        $this->assertTrue(HTTPMethod::isValidKey('METHOD_GET'));
+        $this->assertTrue(HTTPMethod::isValidKey('GET'));
         $this->assertFalse(HTTPMethod::isValidKey(''));
         $this->assertFalse(HTTPMethod::isValidKey('PUT'));
-    }
-
-    public function testIsFindsKeyByValue() {
-        $this->assertEquals('METHOD_GET', HTTPMethod::find('GET'));
-
-        //Should be case-sensitive
-        $this->assertNull(HTTPMethod::find('gEt'));
-
-        //Invalid inputs
-        $this->assertNull(HTTPMethod::find('TEST'));
-        $this->assertNull(HTTPMethod::find(NULL));
-        $this->assertNull(HTTPMethod::find(FALSE));
-        $this->assertNull(HTTPMethod::find(25));
-        $this->assertNull(HTTPMethod::find([]));
     }
 
     public function testItReturnsValidInstances() {
@@ -122,9 +111,5 @@ class EnumerationTest extends \PHPUnit_Framework_TestCase {
 
     public function testItConvertsToStringCorrectly() {
         $this->assertEquals('GET', $this->enumeration->__toString());
-    }
-
-    public function testInstancesReturnsKeyCorrectly() {
-        $this->assertEquals('METHOD_GET', $this->enumeration->getKey());
     }
 }
