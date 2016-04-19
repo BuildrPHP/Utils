@@ -1,11 +1,10 @@
 <?php namespace BuildR\Utils\Enumeration;
 
 use \ReflectionClass;
-use \Countable;
 use BuildR\Foundation\Object\StringConvertibleInterface;
 use BuildR\Utils\Enumeration\Exception\EnumerationException;
 
-class EnumerationBase implements StringConvertibleInterface, Countable {
+class EnumerationBase implements StringConvertibleInterface {
 
     public $value;
 
