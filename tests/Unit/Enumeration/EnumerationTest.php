@@ -95,8 +95,8 @@ class EnumerationTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testIsCountTheEnumerationLengthCorrectly() {
-        $this->assertTrue(is_int(HTTPMethod::count()));
-        $this->assertEquals(2, HTTPMethod::count());
+        $this->assertTrue(is_int(HTTPMethod::size()));
+        $this->assertEquals(2, HTTPMethod::size());
     }
 
     public function testInstancesCanReturnsTheCorrectValue() {

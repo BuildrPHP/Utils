@@ -50,6 +50,10 @@ class EnumerationBase implements StringConvertibleInterface, Countable {
         return array_key_exists($key, self::toArray());
     }
 
+    public static function size() {
+        return count(self::toArray());
+    }
+
     public static function __callStatic($name, $arguments) {
         $calledClass = get_called_class();
         $args[] = $name;
@@ -64,9 +68,9 @@ class EnumerationBase implements StringConvertibleInterface, Countable {
         $reflector = new ReflectionClass($calledClass);
         return $reflector->newInstanceArgs($args);
     }
-
     // ==========================================
     // StringConvertibleInterface implementation
+
     // ==========================================
 
     /**
@@ -81,17 +85,6 @@ class EnumerationBase implements StringConvertibleInterface, Countable {
      */
     public function toString() {
         return $this->value;
-    }
-
-    // ===================================
-    // Countable interface implementation
-    // ===================================
-
-    /**
-     * {@inheritdoc}
-     */
-    public function count() {
-        return count(self::toArray());
     }
 
 }
