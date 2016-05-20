@@ -43,6 +43,12 @@ menu:
                   concept:
                       text: Concept
                       relativeUrl: doc/extension-concept.html
+          enumeration:
+              name: Enumerations
+              items:
+                  enumeration-usage:
+                      text: Using enumerations
+                      relativeUrl: doc/enumerations.html
           others:
               name: Others
               items:

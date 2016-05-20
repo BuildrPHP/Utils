@@ -20,4 +20,4 @@ currentMenu: home
 ```
 
 `Utils` is a collection of basic helper and wrapper classes. These utilities provide a nice API
-to work with strings, and arrays. The wrapper objects are easily expansible with other methods.
+to work with strings, and arrays, create enumerations and so on. The wrapper objects are easily expansible with other methods.

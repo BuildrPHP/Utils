@@ -26,6 +26,7 @@ composer require buildr/test-tools
 
  - [X] String utilities
  - [X] Object extension system
+ - [X] Enumeration
  - [ ] Array manipulation utilities
 
 ## Contribution
