@@ -51,7 +51,7 @@ class EnumerationBase implements StringConvertibleInterface {
      *
      * @return bool
      */
-    protected function isValid($value) {
+    public function isValid($value) {
         return (bool) in_array($value, self::toArray());
     }
 
