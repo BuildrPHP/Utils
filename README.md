@@ -20,7 +20,7 @@ composer require buildr/test-tools
 
 # Documentation
  
-    [Utils Documentation](https://docs.zolli.hu/display/BCUT)
+[Utils Documentation](https://docs.zolli.hu/display/BCUT)
 
 ## ToDo
 
