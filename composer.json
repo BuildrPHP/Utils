@@ -1,19 +1,19 @@
 {
   "name": "buildr/utils",
   "type": "library",
-  "homepage": "http://buildr-framework.io",
+  "homepage": "https://buildr-framework.io",
   "authors": [
     {
       "name": "Zoltán Borsos",
       "email": "zolli07@gmail.com",
-      "homepage": "http://zolli.hu",
+      "homepage": "https://zolli.hu",
       "role": "Developer"
     }
   ],
   "support": {
     "issues": "http://project.zolli.hu",
-    "source": "http://project.zolli.hu/diffusion/UTILS/",
-    "docs": "https://docs.buildr-framework.io/utils"
+    "source": "https://code.zolli.hu/projects/BC/repos/utils",
+    "docs": "https://docs.zolli.hu/display/BCUT"
   },
   "description": "BuildR Framework Utilities",
   "keywords": [
