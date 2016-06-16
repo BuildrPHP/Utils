@@ -94,6 +94,10 @@ class EnumerationTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceOf(HTTPMethod::class, $this->enumeration);
     }
 
+    public function testIsCastToStringCorrectly() {
+        $this->assertEquals('GET', $this->enumeration->toString());
+    }
+
     public function testIsCountTheEnumerationLengthCorrectly() {
         $this->assertTrue(is_int(HTTPMethod::size()));
         $this->assertEquals(2, HTTPMethod::size());

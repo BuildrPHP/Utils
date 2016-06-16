@@ -33,7 +33,7 @@ abstract class AbstractExtensionReceiver implements ExtensionReceiverInterface {
                 return $this->processResult($result);
             }
         }
-    } //@codeCoverageIgnore
+    }
 
     /**
      * {@inheritDoc}
