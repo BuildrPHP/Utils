@@ -26,7 +26,7 @@
   "require": {
     "php": ">=5.6",
     "ext-mbstring": "*",
-    "buildr/foundation": "0.*"
+    "buildr/foundation": "0.2.*"
   },
   "require-dev": {
     "buildr/test-tools": "1.*",
