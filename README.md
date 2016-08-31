@@ -15,7 +15,7 @@
 ### With Composer
 
 ```
-composer require buildr/test-tools
+composer require buildr/utils
 ```
 
 # Documentation

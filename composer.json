@@ -26,17 +26,17 @@
   "require": {
     "php": ">=5.6",
     "ext-mbstring": "*",
-    "buildr/foundation": "0.2.*"
+    "buildr/foundation": "~0.3"
   },
   "require-dev": {
-    "buildr/test-tools": "1.*",
-    "phing/phing": "2.*",
-    "phpunit/phpunit": "5.*",
-    "phploc/phploc": "2.*",
-    "sebastian/phpcpd": "2.*",
-    "pdepend/pdepend": "2.*",
-    "apigen/apigen": "4.*",
-    "squizlabs/php_codesniffer": "2.*"
+    "buildr/test-tools": "~1.0",
+    "phing/phing": "~2.0",
+    "phpunit/phpunit": "~5.0",
+    "phploc/phploc": "~2.0",
+    "sebastian/phpcpd": "~2.0",
+    "pdepend/pdepend": "~2.0",
+    "apigen/apigen": "~4.0",
+    "squizlabs/php_codesniffer": "~2.0"
   },
   "autoload": {
     "files": [
